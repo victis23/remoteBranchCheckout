@@ -12,7 +12,11 @@ read isCheckoutBranch
 
  case $isCheckoutBranch in
  'y')
+ if [[ "$branchName" =~ .*"remote".* ]]; then
  git checkout --track $branchName
+ else
+ git checkout $branchName
+ fi
  ;;
  'n')
  echo No action will be taken.
