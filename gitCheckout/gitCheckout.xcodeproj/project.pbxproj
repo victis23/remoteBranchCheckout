@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		7D5588FA25A9FD9600A9ACB9 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D5588F925A9FD9600A9ACB9 /* main.c */; };
 		7D55890325AB3CA400A9ACB9 /* scripts.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D55890225AB3CA400A9ACB9 /* scripts.c */; };
+		7DC153D425AD1433001981FF /* stashes.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DC153D325AD1433001981FF /* stashes.c */; };
+		7DC153D825AD1BBA001981FF /* commits.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DC153D725AD1BBA001981FF /* commits.c */; };
+		7DC153DC25AD21E7001981FF /* branches.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DC153DB25AD21E7001981FF /* branches.c */; };
+		7DC153E025AD244D001981FF /* warnings.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DC153DF25AD244D001981FF /* warnings.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +32,14 @@
 		7D5588F925A9FD9600A9ACB9 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		7D55890125AB3C5D00A9ACB9 /* scripts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scripts.h; sourceTree = "<group>"; };
 		7D55890225AB3CA400A9ACB9 /* scripts.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scripts.c; sourceTree = "<group>"; };
+		7DC153D225AD1433001981FF /* stashes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stashes.h; sourceTree = "<group>"; };
+		7DC153D325AD1433001981FF /* stashes.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stashes.c; sourceTree = "<group>"; };
+		7DC153D625AD1BBA001981FF /* commits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = commits.h; sourceTree = "<group>"; };
+		7DC153D725AD1BBA001981FF /* commits.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = commits.c; sourceTree = "<group>"; };
+		7DC153DA25AD21E7001981FF /* branches.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = branches.h; sourceTree = "<group>"; };
+		7DC153DB25AD21E7001981FF /* branches.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = branches.c; sourceTree = "<group>"; };
+		7DC153DE25AD244D001981FF /* warnings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = warnings.h; sourceTree = "<group>"; };
+		7DC153DF25AD244D001981FF /* warnings.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = warnings.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +73,14 @@
 			isa = PBXGroup;
 			children = (
 				7D5588F925A9FD9600A9ACB9 /* main.c */,
+				7DC153DE25AD244D001981FF /* warnings.h */,
+				7DC153DF25AD244D001981FF /* warnings.c */,
+				7DC153DA25AD21E7001981FF /* branches.h */,
+				7DC153DB25AD21E7001981FF /* branches.c */,
+				7DC153D625AD1BBA001981FF /* commits.h */,
+				7DC153D725AD1BBA001981FF /* commits.c */,
+				7DC153D225AD1433001981FF /* stashes.h */,
+				7DC153D325AD1433001981FF /* stashes.c */,
 				7D55890125AB3C5D00A9ACB9 /* scripts.h */,
 				7D55890225AB3CA400A9ACB9 /* scripts.c */,
 			);
@@ -124,6 +144,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D55890325AB3CA400A9ACB9 /* scripts.c in Sources */,
+				7DC153DC25AD21E7001981FF /* branches.c in Sources */,
+				7DC153E025AD244D001981FF /* warnings.c in Sources */,
+				7DC153D425AD1433001981FF /* stashes.c in Sources */,
+				7DC153D825AD1BBA001981FF /* commits.c in Sources */,
 				7D5588FA25A9FD9600A9ACB9 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

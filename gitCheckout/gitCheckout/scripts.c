@@ -64,8 +64,9 @@ char quickAmend[200] = "\
 #/bin/bash \n\
 git add . \n\
 git commit --amend \n\
-git push --force-with-lease \n\
 ";
+
+char *pushWithForce = "git push --force-with-lease";
 
 char commit[200] = "\
 #/bin/bash \n\
@@ -73,7 +74,17 @@ printf \"Enter your commit message: \" \n\
 read commitMessage; message=$commitMessage\n\
 git add . \n\
 git commit -m \"$message\" \n\
-git push \n\
+";
+
+char *push = "sleep 1; git push";
+
+char *stash = "\
+echo Enter stash description: \n\
+read message \n\
+stashDescription=$message \n\
+git stash save \"${message}\" \n\
+sleep 2 \n\
+git stash list \n\
 ";
 
 char resetStash[500] = "\
@@ -102,13 +113,5 @@ git stash list \n\
 
 char ap2[50] = "git stash list | sed -n '%d p'";
 
-int applyPatchAsCommit(int position, char *message) {
-	char commands[1000] = "git stash apply stash@{%d}; git add .; git commit -m \"%s\"";
-	
-	char instruction[1000];
-	sprintf(instruction, commands,position, message);
-	system(instruction);
-	return 0;
-}
 
 

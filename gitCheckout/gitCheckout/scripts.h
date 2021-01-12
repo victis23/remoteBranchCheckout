@@ -14,7 +14,8 @@ char commit[200];
 char resetStash[500];
 char ap1[50];
 char ap2[50];
-
-int applyPatchAsCommit(int position, char *message);
+char *push;
+char *pushWithForce;
+char *stash;
 
 #endif /* script_h */

@@ -7,16 +7,21 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "scripts.h"
 #include <string.h>
+#include "scripts.h"
+#include "stashes.h"
+#include "commits.h"
+#include "branches.h"
+#include "warnings.h"
+
 /* Command Argument keys */
 // -rs : Resets head by nth amount, and stashes changes with provided text description.
 // -a : Amend existing commit on current branch.
+// -ap : Amend existing commit on current branch and push with force.
 // -c : Create a new commit with message & push to remote.
-// -ap : Applies selected patch as a commit with same name as patch description.
-
-#define STYLE_BOLD "\033[1m"
-#define REG_FONT "\033[22m"
+// -apply : Applies selected patch as a commit with same name as patch description.
+// -commit: Creates commit from current changes with provided description.
+// -stash: Creates stash with provided name of current changes.
 
 int main(int argc, const char * argv[]) {
 	
@@ -24,78 +29,26 @@ int main(int argc, const char * argv[]) {
 	
 	if (argc > 1 && argc < 3) {
 		if (strcmp(arg1, "-a") == 0) {
-			system(quickAmend);
-		} else if (strcmp(arg1, "-c") == 0) {
-			char newCommand[200];
-			sprintf(newCommand,commit,argv[2]);
-			system(newCommand);
-		} else if (strcmp(arg1, "-rs") == 0) {
-			system(resetStash);
+			amend();
 		} else if (strcmp(arg1, "-ap") == 0) {
-			system(ap1);
-			
-			printf("Please select stash index (#)\n");
-			int c = 0;
-			scanf("%d",&c);
-						
-			char patchedCommand[100];
-			sprintf(patchedCommand, ap2, c+1);
-			
-			FILE *returned;
-			char *patchContainer = (char *) malloc(5000);
-			returned = popen(patchedCommand, "r");
-			if (returned == NULL) {
-				printf("Nothing was saved to file.\n");
-			} else {
-				
-				while (fgets(patchContainer, 5000, returned)) {
-					printf("%s",patchContainer);
-				}
-				
-				char *patchInfo = strdup(patchContainer);
-				
-				int index = 0;
-				int colonCounter = 0;
-				unsigned long length = strlen(patchInfo);
-				
-				while (index < length) {
-					if (*patchInfo == ':') {
-						colonCounter++;
-						patchInfo = patchInfo + 2;
-					}
-					
-					if (colonCounter >= 2) {
-						break;
-					}
-					
-					patchInfo++;
-					index++;
-				}
-				
-				printf("Message: %s",patchInfo);
-				applyPatchAsCommit(c, patchInfo);
-			}
-			pclose(returned);
-			free(patchContainer);
+			amendAndPush();
+		} else if (strcmp(arg1, "-c") == 0) {
+			commitAndPush();
+		} else if (strcmp(arg1, "-commit") == 0) {
+			commitChanges();
+		} else if (strcmp(arg1, "-rs") == 0) {
+			resetHeadAndStash();
+		} else if (strcmp(arg1, "-apply") == 0) {
+			applyStash();
+		} else if (strcmp(arg1, "-stash") == 0) {
+			stashChanges();
 		} else {
-			char buffer[1500];
-			snprintf(buffer, sizeof(buffer), "#/bin/bash\nremotes=%s\n%s", arg1, checkoutScript);
-			system(buffer);
+			findAndCheckoutBranch(arg1);
 		}
 	} else if (argc >= 3) {
-		printf("\nERROR: Not a valid command entry.\n");
+		invalidEntry();
 	} else {
-		printf("\n%sERROR: No command was entered.%s\n\n",STYLE_BOLD,REG_FONT);
-		printf("\
-Common use: \n\
-gitmaster <name of branch>: This will query all branches in the repo and return a list of available branches to checkout.\n\n\
-Operators:\n\
--rs: Resets branch head by nth amount, and stashes changes with description text entered.\n\
--a: Amend latest commit with current changes, and pushes to remote branch.\n\
--ap : Applies selected patch as a commit with same name as patch description. \n\
--c: Creates a new commit with current changes, and entered description and pushes to remote branch. \n\
-\n\n\
-%sNot entering a search term or operator will result in an error.%s\n\n",STYLE_BOLD,REG_FONT);
+		introductionWarning();
 	}
 	
 	return 0;
