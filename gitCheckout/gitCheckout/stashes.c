@@ -23,14 +23,30 @@ void resetHeadAndStash() {
 void applyStash() {
 	system(ap1);
 	
-	printf("Please select stash index (#)\n");
+	FILE *stashList = NULL;
+	stashList = popen(ap1, "r");
+	int v;
+	int count = 0;
+	
+	while ((v = fgetc(stashList)) != EOF) {
+		if (v == '\n')
+			count++;
+	}
+	
+	pclose(stashList);
+	
+	printf("Please select stash index (0 - %d)\n", count - 1);
 	int c = 0;
 	scanf("%d",&c);
+	
+	if (!(c >= 0 && c <= count - 1)) {
+		exit(1);
+	}
 	
 	char patchedCommand[100];
 	sprintf(patchedCommand, ap2, c+1);
 	
-	FILE *returned;
+	FILE *returned = NULL;
 	char *patchContainer = (char *) malloc(5000);
 	returned = popen(patchedCommand, "r");
 	if (returned == NULL) {

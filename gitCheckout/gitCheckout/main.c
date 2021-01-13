@@ -15,12 +15,12 @@
 #include "warnings.h"
 
 /* Command Argument keys */
-// -rs : Resets head by nth amount, and stashes changes with provided text description.
 // -a : Amend existing commit on current branch.
 // -ap : Amend existing commit on current branch and push with force.
-// -c : Create a new commit with message & push to remote.
 // -apply : Applies selected patch as a commit with same name as patch description.
+// -c : Create a new commit with message & push to remote.
 // -commit: Creates commit from current changes with provided description.
+// -rs : Resets head by nth amount, and stashes changes with provided text description.
 // -stash: Creates stash with provided name of current changes.
 
 int main(int argc, const char * argv[]) {

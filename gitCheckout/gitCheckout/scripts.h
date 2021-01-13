@@ -9,11 +9,11 @@
 #define scripts_h
 
 char checkoutScript[1200];
-char quickAmend[200];
 char commit[200];
 char resetStash[500];
-char ap1[50];
-char ap2[50];
+char *quickAmend;
+char *ap1;
+char *ap2;
 char *push;
 char *pushWithForce;
 char *stash;

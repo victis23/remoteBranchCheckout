@@ -9,6 +9,53 @@
 #include "scripts.h"
 #include <stdlib.h>
 
+char *ap1 = "git stash list";
+char *ap2 = "git stash list | sed -n '%d p'";
+char *pushWithForce = "git push --force-with-lease";
+char *push = "sleep 1; git push";
+
+char *quickAmend = "\
+#/bin/bash \n\
+git add . \n\
+git commit --amend \n\
+";
+
+char *stash = "\
+echo Enter stash description: \n\
+read message \n\
+stashDescription=$message \n\
+git stash save \"${message}\" \n\
+sleep 2 \n\
+git stash list \n\
+";
+
+char commit[200] = "\
+#/bin/bash \n\
+printf \"Enter your commit message: \" \n\
+read commitMessage; message=$commitMessage\n\
+git add . \n\
+git commit -m \"$message\" \n\
+";
+
+char resetStash[500] = "\
+#/bin/bash \n\
+printf \"Reset branch head by (#): \" \n\
+read amount \n\
+re='^[0-9]+$' \n\
+if [[ $amount =~ $re ]]; then \n\
+resetAmount=$amount \n\
+git reset HEAD~${resetAmount} --soft \n\
+echo Enter stash description: \n\
+read message \n\
+stashDescription=$message \n\
+git stash save \"${message}\" \n\
+sleep 2 \n\
+git stash list \n\
+else \n\
+echo Error: Not Numeric \n\
+fi \n\
+";
+
 char checkoutScript[1200] = "\
 function make_selection { \n\
 local branchName=$1 \n\
@@ -59,59 +106,3 @@ else \n\
 echo No branch found. \n\
 fi \n\
 ";
-
-char quickAmend[200] = "\
-#/bin/bash \n\
-git add . \n\
-git commit --amend \n\
-";
-
-char *pushWithForce = "git push --force-with-lease";
-
-char commit[200] = "\
-#/bin/bash \n\
-printf \"Enter your commit message: \" \n\
-read commitMessage; message=$commitMessage\n\
-git add . \n\
-git commit -m \"$message\" \n\
-";
-
-char *push = "sleep 1; git push";
-
-char *stash = "\
-echo Enter stash description: \n\
-read message \n\
-stashDescription=$message \n\
-git stash save \"${message}\" \n\
-sleep 2 \n\
-git stash list \n\
-";
-
-char resetStash[500] = "\
-#/bin/bash \n\
-printf \"Reset branch head by (#): \" \n\
-read amount \n\
-re='^[0-9]+$' \n\
-if [[ $amount =~ $re ]]; then \n\
-resetAmount=$amount \n\
-git reset HEAD~${resetAmount} --soft \n\
-echo Enter stash description: \n\
-read message \n\
-stashDescription=$message \n\
-git stash save \"${message}\" \n\
-sleep 2 \n\
-git stash list \n\
-else \n\
-echo Error: Not Numeric \n\
-fi \n\
-";
-
-char ap1[50] = "\
-#/bin/bash \n\
-git stash list \n\
-";
-
-char ap2[50] = "git stash list | sed -n '%d p'";
-
-
-
