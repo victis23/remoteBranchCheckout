@@ -40,6 +40,7 @@ void applyStash() {
 	scanf("%d",&c);
 	
 	if (!(c >= 0 && c <= count - 1)) {
+		printf("Invalid Entry\n");
 		exit(1);
 	}
 	

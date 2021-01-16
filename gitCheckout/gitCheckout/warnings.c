@@ -26,6 +26,7 @@ Operators:\n\
 -c: Creates a new commit with current changes, and entered description and pushes to remote branch. \n\
 -commit: Creates commit from current changes with provided description. \n\
 -rs: Resets branch head by nth amount, and stashes changes with description text entered.\n\
+-rebase: Allows user to reset branch head and rebase to remote or local branches. \n\
 -stash: Creates stash with provided name of current changes. \n\
 \n\n\
 %sNot entering a search term or operator will result in an error.%s\n\n",STYLE_BOLD,REG_FONT);

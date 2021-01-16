@@ -13,6 +13,7 @@
 #include "commits.h"
 #include "branches.h"
 #include "warnings.h"
+#include "rebase.h"
 
 /* Command Argument keys */
 // -a : Amend existing commit on current branch.
@@ -22,6 +23,7 @@
 // -commit: Creates commit from current changes with provided description.
 // -rs : Resets head by nth amount, and stashes changes with provided text description.
 // -stash: Creates stash with provided name of current changes.
+// -rebase:
 
 int main(int argc, const char * argv[]) {
 	
@@ -42,6 +44,8 @@ int main(int argc, const char * argv[]) {
 			applyStash();
 		} else if (strcmp(arg1, "-stash") == 0) {
 			stashChanges();
+		} else if (strcmp(arg1, "-rebase") == 0) {
+			startRebasingProcess();
 		} else {
 			findAndCheckoutBranch(arg1);
 		}

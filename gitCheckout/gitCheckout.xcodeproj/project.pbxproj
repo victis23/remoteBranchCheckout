@@ -13,6 +13,7 @@
 		7DC153D825AD1BBA001981FF /* commits.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DC153D725AD1BBA001981FF /* commits.c */; };
 		7DC153DC25AD21E7001981FF /* branches.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DC153DB25AD21E7001981FF /* branches.c */; };
 		7DC153E025AD244D001981FF /* warnings.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DC153DF25AD244D001981FF /* warnings.c */; };
+		7DC153E425C716F4001981FF /* rebase.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DC153E325C716F4001981FF /* rebase.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,6 +41,8 @@
 		7DC153DB25AD21E7001981FF /* branches.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = branches.c; sourceTree = "<group>"; };
 		7DC153DE25AD244D001981FF /* warnings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = warnings.h; sourceTree = "<group>"; };
 		7DC153DF25AD244D001981FF /* warnings.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = warnings.c; sourceTree = "<group>"; };
+		7DC153E225C716F4001981FF /* rebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rebase.h; sourceTree = "<group>"; };
+		7DC153E325C716F4001981FF /* rebase.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rebase.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,8 @@
 				7DC153D325AD1433001981FF /* stashes.c */,
 				7D55890125AB3C5D00A9ACB9 /* scripts.h */,
 				7D55890225AB3CA400A9ACB9 /* scripts.c */,
+				7DC153E225C716F4001981FF /* rebase.h */,
+				7DC153E325C716F4001981FF /* rebase.c */,
 			);
 			path = gitCheckout;
 			sourceTree = "<group>";
@@ -149,6 +154,7 @@
 				7DC153D425AD1433001981FF /* stashes.c in Sources */,
 				7DC153D825AD1BBA001981FF /* commits.c in Sources */,
 				7D5588FA25A9FD9600A9ACB9 /* main.c in Sources */,
+				7DC153E425C716F4001981FF /* rebase.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
