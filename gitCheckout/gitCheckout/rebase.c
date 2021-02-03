@@ -18,10 +18,10 @@ void startRebasingProcess() {
 void rollBackCommitHead() {
 	system(resetStash);
 	printf("How far back would you like to permanently reset this branch's head?\n");
-	int *rollBackAmount = malloc(sizeof(int));
-	scanf("%d",rollBackAmount);
+	int rollBackAmount;
+	scanf("%d", &rollBackAmount);
 	char *resetCommand = malloc(100);
-	sprintf(resetCommand, "git reset HEAD~%d --hard", *rollBackAmount);
+	sprintf(resetCommand, "git reset HEAD~%d --hard", rollBackAmount);
 	system(resetCommand);
 	attemptRebase(findBranchToRebaseWith());
 	printf("Would you like to apply your latest patch? ('y'/'n')\n");
@@ -34,11 +34,11 @@ void rollBackCommitHead() {
 	}
 	
 	free(resetCommand);
-	free(rollBackAmount);
+	free(shouldApplyPatch);
 }
 
 char* findBranchToRebaseWith(void) {
-	char *gitBranchList = malloc(3000);
+	char *gitBranchList = malloc(200);
 	char *searchTerm = (char *) malloc(100);
 	
 	printf("Enter search term: ");
@@ -83,13 +83,12 @@ char* findBranchToRebaseWith(void) {
 	}
 
 	printf("Please select a branch (0 - %d): ", branchCount - 1);
-	int *branchSelection = malloc(sizeof(int));
-	scanf("%d",branchSelection);
+	int branchSelection;
+	scanf("%d", &branchSelection);
 	
-	char *selectedBranch = branches[*branchSelection];
+	char *selectedBranch = branches[branchSelection];
 	
 	pclose(listOfBranches);
-	free(branchSelection);
 	free(searchTerm);
 	free(gitBranchList);
 	
@@ -99,8 +98,8 @@ char* findBranchToRebaseWith(void) {
 }
 
 void attemptRebase(char *branchName) {
-	char *rebaseCommand = malloc(1000);
-	sprintf(rebaseCommand, "git rebase %s",branchName);
+	char *rebaseCommand = malloc(1025);
+	sprintf(rebaseCommand, "git rebase %s", branchName);
 	system(rebaseCommand);
 }
 
