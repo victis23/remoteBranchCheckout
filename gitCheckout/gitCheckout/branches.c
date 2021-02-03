@@ -14,5 +14,6 @@
 void findAndCheckoutBranch(const char *searchTerm) {
 	char buffer[1500];
 	snprintf(buffer, sizeof(buffer), "#/bin/bash\nremotes=%s\n%s", searchTerm, checkoutScript);
+	
 	system(buffer);
 }

@@ -21,10 +21,10 @@ void commitAndPush() {
 }
 
 void applyPatchAsCommit(int position, char *message) {
-	char commands[1000] = "git stash apply stash@{%d}; git add .; git commit -m \"%s\"";
-	
 	char instruction[1000];
+	char commands[1000] = "git stash apply stash@{%d}; git add .; git commit -m \"%s\"";
 	sprintf(instruction, commands,position, message);
+	
 	system(instruction);
 }
 

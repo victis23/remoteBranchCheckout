@@ -18,15 +18,18 @@ void startRebasingProcess() {
 void rollBackCommitHead() {
 	system(resetStash);
 	printf("How far back would you like to permanently reset this branch's head?\n");
+	
 	int rollBackAmount;
 	scanf("%d", &rollBackAmount);
+	
 	char *resetCommand = malloc(100);
 	sprintf(resetCommand, "git reset HEAD~%d --hard", rollBackAmount);
 	system(resetCommand);
+	
 	attemptRebase(findBranchToRebaseWith());
+	
 	printf("Would you like to apply your latest patch? ('y'/'n')\n");
 	char* shouldApplyPatch = malloc(sizeof(char));
-	
 	scanf("%s", shouldApplyPatch);
 	
 	if (strcmp(shouldApplyPatch, "y") == 0) {
@@ -68,10 +71,10 @@ char* findBranchToRebaseWith(void) {
 		
 		if (character == '\n') {
 			strcpy(branches[branchCount], branch);
-			characterCountPerBranch = 0;
 			
 			branchCount++;
 			memset(branch, '\0', sizeof(branch));
+			characterCountPerBranch = 0;
 		}
 		
 		printf("%c",character);
