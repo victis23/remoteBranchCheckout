@@ -48,6 +48,7 @@ char* findBranchToRebaseWith(void) {
 	scanf("%s", searchTerm);
 	sprintf(gitBranchList, "git branch -a | grep %s", searchTerm);
 
+	system("git fetch");
 	FILE *listOfBranches = NULL;
 	listOfBranches = popen(gitBranchList, "r");
 
