@@ -101,10 +101,12 @@ char* findBranchToRebaseWith(void) {
 	return selectedBranch;
 }
 
+// Just wanted to test out calloc and the type casting...
 void attemptRebase(char *branchName) {
-	char *rebaseCommand = malloc(1025);
+	char *rebaseCommand = (char *) calloc(1025, sizeof(char));
 	sprintf(rebaseCommand, "git rebase %s", branchName);
 	system(rebaseCommand);
+	free(rebaseCommand);
 }
 
 void reapplyStashedChanges(void) {
