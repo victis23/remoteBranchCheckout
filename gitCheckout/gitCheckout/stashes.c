@@ -12,6 +12,8 @@
 #include "stashes.h"
 #include "commits.h"
 
+#define READ_OP "r"
+
 void stashChanges() {
 	system(stash);
 }
@@ -24,7 +26,7 @@ void applyStash() {
 	system(ap1);
 	
 	FILE *stashList = NULL;
-	stashList = popen(ap1, "r");
+	stashList = popen(ap1, READ_OP);
 	
 	int v;
 	int count = 0;

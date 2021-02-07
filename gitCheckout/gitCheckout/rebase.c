@@ -40,7 +40,7 @@ void rollBackCommitHead() {
 	free(shouldApplyPatch);
 }
 
-char* findBranchToRebaseWith(void) {
+char* findBranchToRebaseWith() {
 	char *gitBranchList = malloc(200);
 	char *searchTerm = (char *) malloc(100);
 	

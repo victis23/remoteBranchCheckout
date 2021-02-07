@@ -9,6 +9,8 @@
 #define warnings_h
 
 #include <stdio.h>
+
 void introductionWarning(void);
 void invalidEntry(void);
+
 #endif /* warnings_h */

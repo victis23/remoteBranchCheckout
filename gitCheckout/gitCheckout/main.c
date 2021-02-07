@@ -6,7 +6,6 @@
 //
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include "scripts.h"
 #include "stashes.h"
@@ -23,33 +22,44 @@
 // -commit: Creates commit from current changes with provided description.
 // -rs : Resets head by nth amount, and stashes changes with provided text description.
 // -stash: Creates stash with provided name of current changes.
-// -rebase:
+// -rebase: Allows user to reset branch head and rebase to remote or local branches.
+
+#define AMEND "-a"
+#define AMEND_AND_PUSH "-ap"
+#define COMMIT_AND_PUSH "-c"
+#define COMMIT_CHANGES "-commit"
+#define RESET_HEAD_AND_STASH "-rs"
+#define APPLY_STASH "-apply"
+#define STASH_CHANGES "-stash"
+#define START_REBASE "-rebase"
+#define MIN_ARGS 1
+#define MAX_ARGS 3
 
 int main(int argc, const char * argv[]) {
 	
-	char *arg1 = (char *) argv[1];
+	char *primaryUserInputCommand = (char *) argv[1];
 	
-	if (argc > 1 && argc < 3) {
-		if (strcmp(arg1, "-a") == 0) {
+	if (argc > MIN_ARGS && argc < MAX_ARGS) {
+		if (strcmp(primaryUserInputCommand, AMEND) == 0) {
 			amend();
-		} else if (strcmp(arg1, "-ap") == 0) {
+		} else if (strcmp(primaryUserInputCommand, AMEND_AND_PUSH) == 0) {
 			amendAndPush();
-		} else if (strcmp(arg1, "-c") == 0) {
+		} else if (strcmp(primaryUserInputCommand, COMMIT_AND_PUSH) == 0) {
 			commitAndPush();
-		} else if (strcmp(arg1, "-commit") == 0) {
+		} else if (strcmp(primaryUserInputCommand, COMMIT_CHANGES) == 0) {
 			commitChanges();
-		} else if (strcmp(arg1, "-rs") == 0) {
+		} else if (strcmp(primaryUserInputCommand, RESET_HEAD_AND_STASH) == 0) {
 			resetHeadAndStash();
-		} else if (strcmp(arg1, "-apply") == 0) {
+		} else if (strcmp(primaryUserInputCommand, APPLY_STASH) == 0) {
 			applyStash();
-		} else if (strcmp(arg1, "-stash") == 0) {
+		} else if (strcmp(primaryUserInputCommand, STASH_CHANGES) == 0) {
 			stashChanges();
-		} else if (strcmp(arg1, "-rebase") == 0) {
+		} else if (strcmp(primaryUserInputCommand, START_REBASE) == 0) {
 			startRebasingProcess();
 		} else {
-			findAndCheckoutBranch(arg1);
+			findAndCheckoutBranch(primaryUserInputCommand);
 		}
-	} else if (argc >= 3) {
+	} else if (argc >= MAX_ARGS) {
 		invalidEntry();
 	} else {
 		introductionWarning();
