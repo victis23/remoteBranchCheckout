@@ -12,7 +12,7 @@
 
 void commitChanges(void);
 void commitAndPush(void);
-void applyPatchAsCommit(int position, char *message);
+void applyPatchAsCommit(int position, char *message, int length);
 void amendAndPush(void);
 void amend(void);
 

@@ -10,6 +10,11 @@
 #include "stashes.h"
 #include <string.h>
 
+#define SEARCH_RESULT_BRANCHES_MAX 100
+#define COMMAND_MAX_LEN 300
+#define REBASE_COMMAND_MAX_LEN 1500
+#define BRANCH_NAME_MAX_LEN 1000
+
 
 void startRebasingProcess() {
 	rollBackCommitHead();
@@ -22,13 +27,13 @@ void rollBackCommitHead() {
 	int rollBackAmount;
 	scanf("%d", &rollBackAmount);
 	
-	char *resetCommand = malloc(100);
+	char *resetCommand = malloc(COMMAND_MAX_LEN * sizeof(char));
 	sprintf(resetCommand, "git reset HEAD~%d --hard", rollBackAmount);
 	system(resetCommand);
 	
 	attemptRebase(findBranchToRebaseWith());
 	
-	printf("Would you like to apply your latest patch? ('y'/'n')\n");
+	printf("Would you like to apply a patch to your newly rebased branch? ('y'/'n')\n");
 	char* shouldApplyPatch = malloc(sizeof(char));
 	scanf("%s", shouldApplyPatch);
 	
@@ -41,22 +46,22 @@ void rollBackCommitHead() {
 }
 
 char* findBranchToRebaseWith() {
-	char *gitBranchList = malloc(200);
-	char *searchTerm = (char *) malloc(100);
+	char *branchSearchCommand = malloc(COMMAND_MAX_LEN * sizeof(char));
+	char *searchTerm = (char *) malloc(COMMAND_MAX_LEN * sizeof(char));
 	
 	printf("Enter search term: ");
 	scanf("%s", searchTerm);
-	sprintf(gitBranchList, "git branch -a | grep %s", searchTerm);
+	sprintf(branchSearchCommand, "git branch -a | grep %s", searchTerm);
 
 	system("git fetch");
 	FILE *listOfBranches = NULL;
-	listOfBranches = popen(gitBranchList, "r");
+	listOfBranches = popen(branchSearchCommand, "r");
 
 	int character;
 	int characterCountPerBranch = 0;
 	int branchCount = 0;
-	char branches[100][1000];
-	char branch[1000];
+	char branches[SEARCH_RESULT_BRANCHES_MAX][BRANCH_NAME_MAX_LEN];
+	char branch[BRANCH_NAME_MAX_LEN];
 	
 	while ((character = fgetc(listOfBranches)) != EOF) {
 		if (characterCountPerBranch == 0) {
@@ -70,12 +75,14 @@ char* findBranchToRebaseWith() {
 		branch[characterCountPerBranch] = character;
 		characterCountPerBranch++;
 		
-		if (character == '\n') {
+		if (character == '\n' && branchCount < SEARCH_RESULT_BRANCHES_MAX) {
 			strcpy(branches[branchCount], branch);
 			
 			branchCount++;
 			memset(branch, '\0', sizeof(branch));
 			characterCountPerBranch = 0;
+		} else if (branchCount >= SEARCH_RESULT_BRANCHES_MAX) {
+			fprintf(stderr, "Search has exceeded %d - Which is the maximum amount of results allowed.\n",SEARCH_RESULT_BRANCHES_MAX);
 		}
 		
 		printf("%c",character);
@@ -94,7 +101,7 @@ char* findBranchToRebaseWith() {
 	
 	pclose(listOfBranches);
 	free(searchTerm);
-	free(gitBranchList);
+	free(branchSearchCommand);
 	
 	printf("\nProcessing... \n");
 	
@@ -103,7 +110,7 @@ char* findBranchToRebaseWith() {
 
 // Just wanted to test out calloc and the type casting...
 void attemptRebase(char *branchName) {
-	char *rebaseCommand = (char *) calloc(1025, sizeof(char));
+	char *rebaseCommand = (char *) calloc(REBASE_COMMAND_MAX_LEN, sizeof(char));
 	sprintf(rebaseCommand, "git rebase %s", branchName);
 	system(rebaseCommand);
 	free(rebaseCommand);

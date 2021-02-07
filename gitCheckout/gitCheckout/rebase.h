@@ -17,4 +17,5 @@ void rollBackCommitHead(void);
 char* findBranchToRebaseWith(void);
 void attemptRebase(char *branchName);
 void reapplyStashedChanges(void);
+
 #endif /* rebase_h */

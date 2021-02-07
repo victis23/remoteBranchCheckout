@@ -13,6 +13,9 @@
 #include "commits.h"
 
 #define READ_OP "r"
+#define PATCH_COMMAND_MAX_LEN 100
+#define PATCH_MSG_MAX_LEN 5000
+#define MAX_COLONS 2
 
 void stashChanges() {
 	system(stash);
@@ -46,46 +49,46 @@ void applyStash() {
 		exit(1);
 	}
 	
-	char patchedCommand[100];
+	char patchedCommand[PATCH_COMMAND_MAX_LEN];
 	sprintf(patchedCommand, ap2, c+1);
 	
-	FILE *returned = NULL;
-	returned = popen(patchedCommand, "r");
+	FILE *returnedPatch = NULL;
+	returnedPatch = popen(patchedCommand, "r");
 	
-	char *patchMsg = (char *) malloc(5000);
+	char *patchMsg = (char *) malloc(PATCH_MSG_MAX_LEN * sizeof(char));
 	
-	if (returned == NULL) {
+	if (returnedPatch == NULL) {
 		fprintf(stderr,"Nothing was saved to file.\n");
 	} else {
 		
-		while (fgets(patchMsg, 5000, returned)) {
+		while (fgets(patchMsg, PATCH_MSG_MAX_LEN, returnedPatch)) {
 			printf("%s",patchMsg);
 		}
 		
-		char *patchMsgDuplicate = strdup(patchMsg);
+		char *patchMsgPtr_Duplicate = strdup(patchMsg);
 		
 		int index = 0;
 		int colonCounter = 0;
-		unsigned long length = strlen(patchMsgDuplicate);
+		unsigned long patchMsg_stdoutLength = strlen(patchMsgPtr_Duplicate);
 		
-		while (index < length) {
-			if (*patchMsgDuplicate == ':') {
+		while (index < patchMsg_stdoutLength) {
+			if (*patchMsgPtr_Duplicate == ':') {
 				colonCounter++;
-				patchMsgDuplicate = patchMsgDuplicate + 2;
+				patchMsgPtr_Duplicate = patchMsgPtr_Duplicate + 2;
 			}
 			
-			if (colonCounter >= 2) {
+			if (colonCounter >= MAX_COLONS) {
 				break;
 			}
 			
-			patchMsgDuplicate++;
+			patchMsgPtr_Duplicate++;
 			index++;
 		}
 		
-		printf("Message: %s",patchMsgDuplicate);
-		applyPatchAsCommit(c, patchMsgDuplicate);
+		printf("Message: %s",patchMsgPtr_Duplicate);
+		applyPatchAsCommit(c, patchMsgPtr_Duplicate, PATCH_MSG_MAX_LEN);
 	}
 	
-	pclose(returned);
+	pclose(returnedPatch);
 	free(patchMsg);
 }
