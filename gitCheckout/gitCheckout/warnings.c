@@ -11,12 +11,12 @@
 #define REG_FONT "\033[22m"
 
 void invalidEntry() {
-	printf("\nERROR: Not a valid command entry.\n");
+	fprintf(stderr,"\nERROR: Not a valid command entry.\n");
 }
 
 void introductionWarning() {
-	printf("\n%sERROR: No command was entered.%s\n\n",STYLE_BOLD,REG_FONT);
-	printf("\
+	fprintf(stderr,"\n%sERROR: No command was entered.%s\n\n",STYLE_BOLD,REG_FONT);
+	fprintf(stderr,"\
 Common use: \n\
 gitmaster <name of branch>: This will query all branches in the repo and return a list of available branches to checkout.\n\n\
 Operators:\n\

@@ -82,7 +82,7 @@ char* findBranchToRebaseWith() {
 	}
 	
 	if (branchCount < 1) {
-		printf("No branches were found for this search term. \n");
+		fprintf(stderr,"No branches were found for this search term. \n");
 		exit(0);
 	}
 

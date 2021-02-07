@@ -42,7 +42,7 @@ void applyStash() {
 	scanf("%d",&c);
 	
 	if (!(c >= 0 && c <= count - 1)) {
-		printf("Invalid Entry\n");
+		fprintf(stderr,"Invalid Entry\n");
 		exit(1);
 	}
 	
@@ -55,7 +55,7 @@ void applyStash() {
 	char *patchMsg = (char *) malloc(5000);
 	
 	if (returned == NULL) {
-		printf("Nothing was saved to file.\n");
+		fprintf(stderr,"Nothing was saved to file.\n");
 	} else {
 		
 		while (fgets(patchMsg, 5000, returned)) {
