@@ -1,5 +1,5 @@
 # GitMaster
-A simple C util for Git. Quickly search for a checkout remote branches, along with additional listed features. Installation is simple. Compile binary files and move into your /usr/local/bin (on a mac). Give the binary proper permissions and you're good to go.
+A simple C util for Git. Quickly search for and checkout remote branches along with additional listed features. Installation is simple. Compile binary files and move into your /usr/local/bin (on a mac). Give the binary proper permissions and you're good to go.
 
 ## Common use: 
 gitmaster <name of branch>: This will query all branches in the repo and return a list of available branches to checkout. \

@@ -48,7 +48,7 @@ git reset HEAD~${resetAmount} --soft \n\
 echo Enter stash description: \n\
 read message \n\
 stashDescription=$message \n\
-git stash save \"${message}\" \n\
+git stash save \"${stashDescription}\" \n\
 sleep 2 \n\
 git stash list \n\
 else \n\

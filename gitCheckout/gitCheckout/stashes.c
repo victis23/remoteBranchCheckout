@@ -53,7 +53,7 @@ void applyStash() {
 	sprintf(patchedCommand, ap2, c+1);
 	
 	FILE *returnedPatch = NULL;
-	returnedPatch = popen(patchedCommand, "r");
+	returnedPatch = popen(patchedCommand, READ_OP);
 	
 	char *patchMsg = (char *) malloc(PATCH_MSG_MAX_LEN * sizeof(char));
 	
