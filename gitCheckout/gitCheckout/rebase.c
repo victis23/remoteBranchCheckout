@@ -14,6 +14,7 @@
 #define COMMAND_MAX_LEN 300
 #define REBASE_COMMAND_MAX_LEN 1500
 #define BRANCH_NAME_MAX_LEN 1000
+#define GIT_RESTORE_COMMAND "git restore ."
 
 
 void startRebasingProcess() {
@@ -41,6 +42,7 @@ void rollBackCommitHead() {
 		reapplyStashedChanges();
 	}
 	
+	system(GIT_RESTORE_COMMAND);
 	free(resetCommand);
 	free(shouldApplyPatch);
 }
@@ -111,11 +113,13 @@ char* findBranchToRebaseWith() {
 // Just wanted to test out calloc and the type casting...
 void attemptRebase(char *branchName) {
 	char *rebaseCommand = (char *) calloc(REBASE_COMMAND_MAX_LEN, sizeof(char));
+	system(GIT_RESTORE_COMMAND);
 	sprintf(rebaseCommand, "git rebase %s", branchName);
 	system(rebaseCommand);
 	free(rebaseCommand);
 }
 
 void reapplyStashedChanges(void) {
+	system(GIT_RESTORE_COMMAND);
 	applyStash();
 }
